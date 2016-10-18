@@ -24,9 +24,14 @@ SET EVENTQUEUE BASEDIR <%= @new_resource.var_path %>/events<% if @new_resource.e
 
 <%# If httpd_port is nil, just do nothing. This will break other stuff. Oh well. %>
 <%- if @new_resource.httpd_port -%>
-SET HTTPD <%= @new_resource.httpd_is_unix? ? 'UNIXSOCKET' : 'PORT' %> <%= @new_resource.httpd_port %>
+SET HTTPD <%= @new_resource.httpd_is_unix? ? 'UNIXSOCKET' : 'PORT' %> <%= @new_resource.httpd_port %> 
+<%- if @new_resource.httpd_address %> 
+  and use the address <%= @new_resource.httpd_address %>
+<%- end -%>
 <%- if @new_resource.httpd_password %>
   ALLOW <%= @new_resource.httpd_username %>:<%= @new_resource.httpd_password %>
+<%- if @new_resource.httpd_allow_ip %>
+  ALLOW <%= @new_resource.httpd_allow_ip %>/0
 <%- else -%>
   ALLOW 0.0.0.0/0
 <%- end -%>
