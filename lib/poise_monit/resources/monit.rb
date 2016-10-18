@@ -82,6 +82,14 @@ module PoiseMonit
         #   for Unix socket connections and auto-generated otherwise.
         #   @return [String, nil, false]
         attribute(:httpd_password, kind_of: [String, NilClass, FalseClass], default: lazy { default_httpd_password })
+        # @!attribute httpd_allow_ip
+        #   IP Address to allow access to the httpd port
+        #   @return [String]
+        attribute(:httpd_allow_ip, kind_of: [String], default: nil)
+        # @!attribute httpd_address
+        #   IP Address httpd binds to
+        #   @return [String]
+        attribute(:httpd_address, kind_of: [String], default: nil)
         # @!attribute httpd_username
         #   Username for authentication between the Monit daemon and CLI.
         #   Default is cli.
